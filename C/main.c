@@ -14,11 +14,15 @@ double B;
 const char LRL[] = "Linear Regression Line: ";
 const char PCC[] = "Pearson Correlation Coefficient: ";
 
-int main(){
-
+int main(int argc, char *argv[]){
+if (argc != 2){
+    perror("Incorrect input arg");
+    return 1;
+}
+char* fileName = argv[1];
     //reading file
     struct Analytical_Set Set;
-    FILE *input = fopen("data.txt","r");
+    FILE *input = fopen(fileName,"r");
     if (input == NULL){
         perror("File not finde");
         return 1;
@@ -27,13 +31,13 @@ int main(){
     sumX = sumY = sumXY = sumXPow2 = sumYPow2 = n = 0;
     char buffio[100];
     while(fgets(buffio,sizeof(buffio),input)!= NULL){
-            double y = atof(buffio);
-            double x = n; 
-            n++;
-            sumX += x;
-            sumY += y;
-            sumXY += (x * y);
-            sumXPow2 += pow(x, 2);
+        double y = atof(buffio);
+        double x = n; 
+        n++;
+        sumX += x;
+        sumY += y;
+        sumXY += (x * y);
+        sumXPow2 += pow(x, 2);
         sumYPow2 += pow(y, 2);
     }
     fclose(input);
